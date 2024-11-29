@@ -84,4 +84,9 @@ def test_function(data_file):
         print(f'Failed. Possible games: {possible_games}, sum:{sum_possible_games}, expected {answers[0]}') 
 
 if __name__ == '__main__':
-    test_function('data1.txt')
+    # test_function('data1.txt')
+    _, sum_possible_games = main('data1.txt', (12, 13, 14))
+
+    print(sum_possible_games)
+    
+    #Right answer: 2913
