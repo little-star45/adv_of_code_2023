@@ -1,11 +1,15 @@
-#load data from .txt file
-data = open('data2.txt','r').read()
-words = data.split('\n')
+def load_data_from_file(data_file):
+    return open(data_file,'r').read()
 
-numbers = [str(x) for x in range(10)]
-numbers_text = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+def decode_word(word):
+    min_idx = len(word)
+    max_idx = -1
+    min_word = ''
+    max_word = ''
 
-numb_convert={
+    numbers_text = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+
+    numb_convert={
     'one':'1', 
     'two':'2', 
     'three':'3', 
@@ -17,19 +21,10 @@ numb_convert={
     'nine':'9',
 }
 
-results = []
-results_sum = 0
-
-def decode_word(word):
-    min_idx = len(word)
-    max_idx = -1
-    min_word = ''
-    max_word = ''
-
     for nb in numbers_text:
         
         idx = word.find(nb)
-        # print(nb, word,idx,min_word,max_word)
+
         if (idx < min_idx) and (idx != -1):
             min_word = nb
             min_idx = idx
@@ -40,35 +35,46 @@ def decode_word(word):
         word = word.replace(min_word, numb_convert[min_word],1)
     if len(max_word)>2:
         word = word.replace(max_word, numb_convert[max_word],1)
-
     return word
 
-for word in words:
-    if (len(word)==0):
-        break
-    temp_res = [0, 0]
-    left_ready, right_ready = False, False
-    lp, rp = 0, 0
+def main(data_file):
 
-    new_word = decode_word(word)
-    for i in range(len(new_word)):
-        lp = i
-        rp = -i-1
+    data = load_data_from_file(data_file)
+    words = data.split('\n')
 
-        if ((new_word[lp] in numbers) and (not left_ready)):
-            temp_res[0] = new_word[lp]
-            left_ready = True
+    numbers = [str(x) for x in range(10)]
+    results = []
+    results_sum = 0
 
-        if ((new_word[rp] in numbers) and (not right_ready)):
-            temp_res[1] = new_word[rp]
-            right_ready = True
+    for word in words:
+        if (len(word)==0):
+            break
+        temp_res = [0, 0]
+        left_ready, right_ready = False, False
+        lp, rp = 0, 0
 
-    print(f'{temp_res[0]}{temp_res[1]}')
-    results.append(f'{temp_res[0]}{temp_res[1]}')
+        new_word = decode_word(word)
+        for i in range(len(new_word)):
+            lp = i
+            rp = -i-1
 
-for number in results:
-    results_sum += int(number)
+            if ((new_word[lp] in numbers) and (not left_ready)):
+                temp_res[0] = new_word[lp]
+                left_ready = True
 
-print('Results sum: ', results_sum)
+            if ((new_word[rp] in numbers) and (not right_ready)):
+                temp_res[1] = new_word[rp]
+                right_ready = True
+
+        print(word, f'{temp_res[0]}{temp_res[1]}')
+        results.append(f'{temp_res[0]}{temp_res[1]}')
+
+    for number in results:
+        results_sum += int(number)
+
+    print('Results sum: ', results_sum)
 
 #55103 - too high
+
+if __name__ == '__main__':
+    main('data_test.txt')
