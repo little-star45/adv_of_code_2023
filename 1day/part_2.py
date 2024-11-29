@@ -2,10 +2,8 @@ def load_data_from_file(data_file):
     return open(data_file,'r').read()
 
 def decode_word(word):
-    min_idx = len(word)
-    max_idx = len(word)
-    min_word = ''
-    max_word = ''
+    min_idx, max_idx  = len(word), len(word)
+    min_word, max_word = '', ''
 
     numbers_text = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
@@ -19,7 +17,7 @@ def decode_word(word):
     'seven':'7', 
     'eight':'8', 
     'nine':'9',
-}
+    }
 
     for nb in numbers_text:
         
