@@ -72,9 +72,21 @@ def main(data_file):
     for number in results:
         results_sum += int(number)
 
-    print('Results sum: ', results_sum)
+    return results, results_sum
+    
 
 #55103 - too high
 
+def test_function(data_file):
+    answers = (49, 22, 61)
+
+    results, _ = main('data_test.txt')
+
+    for i, res in enumerate(results):
+        if (answers[i]==res):
+            print('Pass') 
+        else:
+            print(f'Failed. Res is {res}, expected {answers[i]}') 
+
 if __name__ == '__main__':
-    main('data_test.txt')
+    test_function('data_file.txt')
