@@ -56,7 +56,6 @@ def main(data_file):
     sum_power_sets = 0
     control_list = []
 
-    print(data_tuples)
     for game in data_tuples:
         sum_power_sets += game[1][0]*game[1][1]*game[1][2]
         control_list.append(game[1][0]*game[1][1]*game[1][2])
@@ -66,9 +65,7 @@ def main(data_file):
 
 def test_function(data_file):
     answers = (2286,(48, 12, 1560, 630, 36))
-
     control_list,sum_power_sets = main(data_file)
-    print(control_list)
 
     for idx in range(len(control_list)):
 
@@ -78,9 +75,9 @@ def test_function(data_file):
             print(f'Failed. Sum:{sum_power_sets}, list of powers:{control_list[idx]} exp:{answers[1][idx]} , expected {answers[0]}') 
 
 if __name__ == '__main__':
-    test_function('data_test.txt')
-    # _,sum_power_sets = main('data1.txt')
+    # test_function('data_test.txt')
+    _,sum_power_sets = main('data1.txt')
 
-    # print(sum_power_sets)
+    print(sum_power_sets)
     
     #Right answer: 2913
