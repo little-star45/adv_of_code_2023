@@ -3,7 +3,7 @@ def load_data_from_file(data_file):
 
 def decode_word(word):
     min_idx = len(word)
-    max_idx = -1
+    max_idx = len(word)
     min_word = ''
     max_word = ''
 
@@ -28,13 +28,18 @@ def decode_word(word):
         if (idx < min_idx) and (idx != -1):
             min_word = nb
             min_idx = idx
-        elif (idx > max_idx) and (idx != -1):
+
+        idx = word[::-1].find(nb[::-1])
+
+        if (idx < max_idx) and (idx != -1):
             max_word = nb
             max_idx = idx
+
     if len(min_word)>2:
         word = word.replace(min_word, numb_convert[min_word],1)
     if len(max_word)>2:
-        word = word.replace(max_word, numb_convert[max_word],1)
+        word = word.replace(max_word, numb_convert[max_word])
+
     return word
 
 def main(data_file):
@@ -66,27 +71,26 @@ def main(data_file):
                 temp_res[1] = new_word[rp]
                 right_ready = True
 
-        print(word, f'{temp_res[0]}{temp_res[1]}')
         results.append(f'{temp_res[0]}{temp_res[1]}')
 
     for number in results:
         results_sum += int(number)
 
     return results, results_sum
-    
-
-#55103 - too high
 
 def test_function(data_file):
-    answers = (49, 22, 61)
-
+    answers = (49, 22, 61, 11)
     results, _ = main('data_test.txt')
 
     for i, res in enumerate(results):
-        if (answers[i]==res):
+        if (answers[i]==int(res)):
             print('Pass') 
         else:
             print(f'Failed. Res is {res}, expected {answers[i]}') 
 
 if __name__ == '__main__':
-    test_function('data_file.txt')
+    # test_function('data_file.txt')
+    _, results_sum = main('data2.txt')
+    print(results_sum)
+
+    #Right answer: 54706
